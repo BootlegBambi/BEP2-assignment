@@ -1,6 +1,8 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
-public class Game {
+import java.io.Serializable;
+
+public class Game implements Serializable {
     private UserPlayer userPlayer;
     private Dealer dealer;
     private State state;

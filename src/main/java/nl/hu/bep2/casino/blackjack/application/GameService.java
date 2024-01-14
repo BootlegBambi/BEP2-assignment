@@ -1,22 +1,21 @@
 package nl.hu.bep2.casino.blackjack.application;
-import nl.hu.bep2.casino.blackjack.data.GameRepository;
+import jakarta.transaction.Transactional;
 import nl.hu.bep2.casino.blackjack.domain.Game;
 import nl.hu.bep2.casino.blackjack.domain.State;
 import nl.hu.bep2.casino.chips.application.ChipsService;
-import nl.hu.bep2.casino.security.application.UserService;
+import org.springframework.stereotype.Service;
 
 import static nl.hu.bep2.casino.blackjack.domain.State.*;
 
-
+@Transactional
+@Service
 public class GameService {
-    private final GameRepository gameRepository;
-    private final UserService userService;
+//    private final GameRepository gameRepository;
     private final ChipsService chipsService;
 
 
-    public GameService(GameRepository gameRepository, UserService userService, ChipsService chipsService) {
-        this.gameRepository = gameRepository;
-        this.userService = userService;
+    public GameService(ChipsService chipsService) { // GameRepository gameRepository,
+//        this.gameRepository = gameRepository;
         this.chipsService = chipsService;
     }
 
@@ -25,38 +24,41 @@ public class GameService {
         this.chipsService.withdrawChips(username, bet);
         Game game = Game.create();
         game.start(bet);
-        this.gameRepository.save(game);
+//        this.gameRepository.save(game);
 
         depositWinningChips(game, username);
 
         return game;
     }
 
-    public Game hit(String username, Long id) { //MAKE DTO
-        Game game = findGameById(id);
+    public Game hit(String username, Long id) {
+        Game game = Game.create(); //findGameById(id);
         game.hit();
-        this.gameRepository.save(game);
+//        this.gameRepository.save(game);
 
         depositWinningChips(game, username);
+        return game;
     }
 
-    public Game stand(String username, Long id) { //MAKE DTO
-        Game game = findGameById(id);
+    public Game stand(String username, Long id) {
+        Game game = Game.create(); //findGameById(id);
         game.stand(game.getDealer());
 
-        this.gameRepository.save(game);
+//        this.gameRepository.save(game);
 
         depositWinningChips(game, username);
+        return game;
     }
 
-    public Game doubleBet(String username, Long id) { //MAKE DTO
-        Game game = findGameById(id);
+    public Game doubleHit(String username, Long id) {
+        Game game = Game.create(); //findGameById(id);
         this.chipsService.withdrawChips(username, game.getBet());
         game.setBet(game.getBet()*2);
         game.doubleHit();
-        this.gameRepository.save(game);
+//        this.gameRepository.save(game);
 
         depositWinningChips(game, username);
+        return game;
     }
 
 
@@ -86,9 +88,9 @@ public class GameService {
         return multiplier;
     }
 
-    private Game findGameById(Long id) {
-        return this.gameRepository
-                .findById(id)
-                .orElse(Game.create());
-    }
+//    private Game findGameById(Long id) {
+//        return this.gameRepository
+//                .findById(id)
+//                .orElse(Game.create());
+//    }
 }

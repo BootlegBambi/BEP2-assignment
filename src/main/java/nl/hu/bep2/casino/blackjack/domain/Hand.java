@@ -1,9 +1,11 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Hand {
-    private List<Card> cardList;
+public class Hand implements Serializable {
+    private List<Card> cardList = new ArrayList<>();
 
     public Hand() {
     }

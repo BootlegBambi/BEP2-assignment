@@ -1,6 +1,8 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
-public enum State {
+import java.io.Serializable;
+
+public enum State implements Serializable {
 
     PLAYING,
     BUST,
