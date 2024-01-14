@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck implements Serializable {
-    private List<Card> cardList;
+    private final List<Card> cardList;
 
     private Deck(List<Card> cardList) {
         this.cardList = cardList;

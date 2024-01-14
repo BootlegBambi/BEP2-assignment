@@ -17,8 +17,8 @@ public enum Rank implements Serializable {
     QUEEN("Queen", 10),
     JACK("Jack", 10);
 
-    private String name;
-    private int value;
+    private final String name;
+    private final int value;
 
     Rank(String name, int value) {
         this.name = name;

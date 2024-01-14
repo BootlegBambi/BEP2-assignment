@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import nl.hu.bep2.casino.blackjack.domain.Game;
 import nl.hu.bep2.casino.security.domain.User;
 
-import java.io.Serializable;
-
 @Entity
 @Table(name = "gameEntity")
 public class GameEntity {
@@ -20,7 +18,8 @@ public class GameEntity {
     @ManyToOne
     private User user;
 
-    public GameEntity() {}
+    public GameEntity() {
+    }
 
     public GameEntity(Game game, User user) {
         this.game = game;

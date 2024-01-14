@@ -3,11 +3,12 @@ package nl.hu.bep2.casino.blackjack.domain;
 import java.io.Serializable;
 
 public class Dealer implements Player, Serializable {
-    private Hand hand;
+    private final Hand hand;
 
     public Dealer(Hand hand) {
         this.hand = hand;
     }
+
     @Override
     public Hand getHand() {
         return this.hand;

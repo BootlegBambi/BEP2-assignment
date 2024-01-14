@@ -74,8 +74,7 @@ public class Game implements Serializable {
     public void stand(Player player) {
         if (player instanceof Dealer) {
             checkFinalResult();
-        }
-        else {
+        } else {
             dealerHit();
         }
     }
@@ -87,6 +86,10 @@ public class Game implements Serializable {
         playerHand.addCard(deck.getCardAndDiscard());
         checkBust();
         dealerHit();
+    }
+
+    public void surrender(UserPlayer userPlayer) {
+        this.state = State.SURRENDERED;
     }
 
     // Checks if there was a blackjack in anyone's first hand and sets the state accordingly
@@ -107,7 +110,7 @@ public class Game implements Serializable {
     private void checkBust() {
         int userPlayerScore = userPlayer.handScore();
 
-        if (userPlayerScore > 24) {
+        if (userPlayerScore > 21) {
             state = State.BUST;
         }
     }
@@ -121,7 +124,7 @@ public class Game implements Serializable {
             state = State.PUSH;
         } else if (userPlayerScore == 21) {
             state = State.BLACKJACK;
-        } else if (dealerScore > 24) {
+        } else if (dealerScore > 21) {
             state = State.WON;
         } else if (dealerScore > userPlayerScore) {
             state = State.LOST;
@@ -149,5 +152,6 @@ public class Game implements Serializable {
     public Dealer getDealer() {
         return dealer;
     }
+
 
 }

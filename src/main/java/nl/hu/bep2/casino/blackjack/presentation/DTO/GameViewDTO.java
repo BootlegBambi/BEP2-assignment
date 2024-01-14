@@ -5,9 +5,9 @@ import nl.hu.bep2.casino.blackjack.domain.Hand;
 import nl.hu.bep2.casino.blackjack.domain.State;
 
 public class GameViewDTO {
-    private Hand userPlayerHand;
-    private Hand dealerHand;
-    private State state;
+    private final Hand userPlayerHand;
+    private final Hand dealerHand;
+    private final State state;
 
     public GameViewDTO(Game game) {
         this.userPlayerHand = game.getUserPlayer().getHand();
