@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "db3796fb-b606-49d2-afc6-23ab111c96bc",
+		"_postman_id": "c9bff75e-0531-43d8-99da-fa67299fb378",
 		"name": "BEP2 HUland Casino",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32316471"
 	},
 	"item": [
 		{
@@ -187,6 +188,119 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Blackjack",
+			"item": [
+				{
+					"name": "Start",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"bet\": 500 }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/game/start",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"game",
+								"start"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/game/hit/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"game",
+								"hit",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stand",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/game/stand/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"game",
+								"stand",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Double",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/game/doublehit/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"game",
+								"doublehit",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Surrender",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/game/surrender/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"game",
+								"surrender",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -221,13 +335,11 @@
 	],
 	"variable": [
 		{
-			"id": "c4d0840d-37d7-45a0-bacb-fbc9d143622b",
 			"key": "token",
 			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJodS1iZXAyLWNhc2luby1hcGkiLCJhdWQiOiJodS1iZXAyLWNhc2lubyIsInN1YiI6ImFkbWluIiwiZXhwIjoxNTk5NDc3NzI0LCJyb2wiOlsiUk9MRV9VU0VSIl0sImZpcnN0TmFtZSI6IkFkIiwibGFzdE5hbWUiOiJNaW4ifQ.Pa99y1rO_2uGxxPU1OcGb_ttlUw5GDHklZmxp4b_AUWa7oRhQGPHzi3fQy_rJd7WWvlEu0ZQAG8dk3L8s0-kGA",
 			"disabled": true
 		},
 		{
-			"id": "0752302a-01a5-474c-8b7e-3d60f3435f13",
 			"key": "authToken",
 			"value": ""
 		}
