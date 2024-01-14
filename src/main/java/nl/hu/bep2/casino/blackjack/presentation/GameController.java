@@ -39,7 +39,7 @@ public class GameController {
         }
     }
 
-    @PostMapping("/{id}/hit")
+    @PostMapping("/hit/{id}")
     public GameViewDTO hit(Authentication authentication, @PathVariable Long id) {
         UserProfile profile = (UserProfile) authentication.getPrincipal();
 
@@ -51,7 +51,7 @@ public class GameController {
         }
     }
 
-    @PostMapping("/{id}/stand")
+    @PostMapping("/stand/{id}")
     public GameViewDTO stand(Authentication authentication, @PathVariable Long id) {
         UserProfile profile = (UserProfile) authentication.getPrincipal();
 
@@ -62,7 +62,7 @@ public class GameController {
             throw new RuntimeException(exception);
         }
     }
-    @PostMapping("/{id}/doublehit")
+    @PostMapping("/doublehit/{id}")
     public GameViewDTO doubleHit(Authentication authentication, @PathVariable Long id) {
         UserProfile profile = (UserProfile) authentication.getPrincipal();
 

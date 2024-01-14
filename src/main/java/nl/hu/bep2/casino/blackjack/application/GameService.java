@@ -1,8 +1,13 @@
 package nl.hu.bep2.casino.blackjack.application;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import nl.hu.bep2.casino.blackjack.data.GameEntity;
+import nl.hu.bep2.casino.blackjack.data.GameRepository;
 import nl.hu.bep2.casino.blackjack.domain.Game;
 import nl.hu.bep2.casino.blackjack.domain.State;
 import nl.hu.bep2.casino.chips.application.ChipsService;
+import nl.hu.bep2.casino.security.application.UserService;
+import nl.hu.bep2.casino.security.domain.User;
 import org.springframework.stereotype.Service;
 
 import static nl.hu.bep2.casino.blackjack.domain.State.*;
@@ -10,53 +15,61 @@ import static nl.hu.bep2.casino.blackjack.domain.State.*;
 @Transactional
 @Service
 public class GameService {
-//    private final GameRepository gameRepository;
+    private final GameRepository gameRepository;
     private final ChipsService chipsService;
+    private final UserService userService;
 
 
-    public GameService(ChipsService chipsService) { // GameRepository gameRepository,
-//        this.gameRepository = gameRepository;
+    public GameService( UserService userService, ChipsService chipsService, GameRepository gameRepository) {
+        this.gameRepository = gameRepository;
         this.chipsService = chipsService;
+        this.userService = userService;
     }
 
     // Start the game and then save the result of the first round of cards.
     public Game startGame(String username, Long bet) { //MAKE DTO
         this.chipsService.withdrawChips(username, bet);
         Game game = Game.create();
+        User user = userService.loadUserByUsername(username);
         game.start(bet);
-//        this.gameRepository.save(game);
 
+        this.gameRepository.save(new GameEntity(game, user));
         depositWinningChips(game, username);
-
         return game;
     }
 
     public Game hit(String username, Long id) {
-        Game game = Game.create(); //findGameById(id);
+        User user = userService.loadUserByUsername(username);
+        GameEntity gameEntity = findGameById(user, id);
+        Game game = gameEntity.getGame();
         game.hit();
-//        this.gameRepository.save(game);
 
+        this.gameRepository.save(gameEntity);
         depositWinningChips(game, username);
         return game;
     }
 
     public Game stand(String username, Long id) {
-        Game game = Game.create(); //findGameById(id);
-        game.stand(game.getDealer());
+        User user = userService.loadUserByUsername(username);
+        GameEntity gameEntity = findGameById(user, id);
+        Game game = gameEntity.getGame();
+        game.stand(game.getUserPlayer());
 
-//        this.gameRepository.save(game);
-
+        this.gameRepository.save(gameEntity);
         depositWinningChips(game, username);
         return game;
     }
 
     public Game doubleHit(String username, Long id) {
-        Game game = Game.create(); //findGameById(id);
+        User user = userService.loadUserByUsername(username);
+        GameEntity gameEntity = findGameById(user, id);
+        Game game = gameEntity.getGame();
+
         this.chipsService.withdrawChips(username, game.getBet());
         game.setBet(game.getBet()*2);
         game.doubleHit();
-//        this.gameRepository.save(game);
 
+        this.gameRepository.save(gameEntity);
         depositWinningChips(game, username);
         return game;
     }
@@ -88,9 +101,9 @@ public class GameService {
         return multiplier;
     }
 
-//    private Game findGameById(Long id) {
-//        return this.gameRepository
-//                .findById(id)
-//                .orElse(Game.create());
-//    }
+    private GameEntity findGameById(User user, Long id) {
+        return this.gameRepository
+                .findById(id)
+                .orElseThrow();
+    }
 }

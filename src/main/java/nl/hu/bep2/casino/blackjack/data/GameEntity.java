@@ -19,4 +19,14 @@ public class GameEntity {
 
     @ManyToOne
     private User user;
+
+    public GameEntity() {}
+
+    public GameEntity(Game game, User user) {
+        this.game = game;
+    }
+
+    public Game getGame() {
+        return game;
+    }
 }

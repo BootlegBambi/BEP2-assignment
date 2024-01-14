@@ -1,6 +1,8 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
-public class Card {
+import java.io.Serializable;
+
+public class Card implements Serializable {
     private Rank rank;
     private Suit suit;
 

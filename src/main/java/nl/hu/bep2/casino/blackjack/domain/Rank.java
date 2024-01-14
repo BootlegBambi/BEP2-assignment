@@ -1,6 +1,8 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
-public enum Rank {
+import java.io.Serializable;
+
+public enum Rank implements Serializable {
     ACE("Ace", 11),
     TWO("Two", 2),
     THREE("Three", 3),

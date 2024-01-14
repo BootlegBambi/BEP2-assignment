@@ -1,10 +1,11 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Deck {
+public class Deck implements Serializable {
     private List<Card> cardList;
 
     private Deck(List<Card> cardList) {

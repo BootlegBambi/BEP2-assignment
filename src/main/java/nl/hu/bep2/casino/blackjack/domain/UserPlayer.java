@@ -1,6 +1,8 @@
 package nl.hu.bep2.casino.blackjack.domain;
 
-public class UserPlayer implements Player {
+import java.io.Serializable;
+
+public class UserPlayer implements Player, Serializable {
     private Hand hand;
 
     public UserPlayer(Hand hand) {
