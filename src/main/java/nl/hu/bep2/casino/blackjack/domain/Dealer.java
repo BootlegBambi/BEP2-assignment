@@ -6,14 +6,21 @@ public class Dealer implements Player {
     public Dealer(Hand hand) {
         this.hand = hand;
     }
-
     @Override
-    public int handScore() {
-        return 0;
+    public Hand getHand() {
+        return this.hand;
     }
 
     @Override
-    public Hand getHand() {
-        return null;
+    // Calculates the score, will change value of ACE to 1 if 22 is reached.
+    public int handScore() {
+        int score = 0;
+        for (Card card : this.hand.getCardList()) {
+            score += card.getRank().getValue();
+            if (card.getRank().getValue() == 11 && score > 21) {
+                score -= 10;
+            }
+        }
+        return score;
     }
 }

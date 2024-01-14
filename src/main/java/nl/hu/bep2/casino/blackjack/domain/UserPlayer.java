@@ -11,8 +11,8 @@ public class UserPlayer implements Player {
         return this.hand;
     }
 
-    // Calculates the score, will change value of ACE to 1 if 22 is reached.
     @Override
+    // Calculates the score, will change value of ACE to 1 if 22 is reached.
     public int handScore() {
         int score = 0;
         for (Card card : this.hand.getCardList()) {
@@ -23,4 +23,5 @@ public class UserPlayer implements Player {
         }
         return score;
     }
+
 }

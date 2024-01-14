@@ -21,22 +21,50 @@ public class GameService {
     }
 
     // Start the game and then save the result of the first round of cards.
-    public Game startGame(String username, Long bet) {
+    public Game startGame(String username, Long bet) { //MAKE DTO
         this.chipsService.withdrawChips(username, bet);
         Game game = Game.create();
         game.start(bet);
         this.gameRepository.save(game);
 
-        depositWinningChips(game, username, bet);
+        depositWinningChips(game, username);
 
         return game;
     }
 
+    public Game hit(String username, Long id) { //MAKE DTO
+        Game game = findGameById(id);
+        game.hit();
+        this.gameRepository.save(game);
+
+        depositWinningChips(game, username);
+    }
+
+    public Game stand(String username, Long id) { //MAKE DTO
+        Game game = findGameById(id);
+        game.stand(game.getDealer());
+
+        this.gameRepository.save(game);
+
+        depositWinningChips(game, username);
+    }
+
+    public Game doubleBet(String username, Long id) { //MAKE DTO
+        Game game = findGameById(id);
+        this.chipsService.withdrawChips(username, game.getBet());
+        game.setBet(game.getBet()*2);
+        game.doubleHit();
+        this.gameRepository.save(game);
+
+        depositWinningChips(game, username);
+    }
+
+
     // Deposit the chips to the user account, do nothing if the player lost.
-    private void depositWinningChips(Game game, String username, Long bet) {
+    private void depositWinningChips(Game game, String username) {
         double multiplier = getMultiplier(game.getState());
         if (multiplier > 0) {
-            this.chipsService.depositChips(username, (long) (bet * multiplier));
+            this.chipsService.depositChips(username, (long) (game.getBet() * multiplier));
         }
     }
 
@@ -58,24 +86,9 @@ public class GameService {
         return multiplier;
     }
 
-    public void hit(String username) {
-    }
-
-    public void stand(String username) {
-    }
-
-    public void doubleBet(String username, Long bet) {
-        this.chipsService.withdrawChips(username, bet);
-        hit(username);
-    }
-
-    public Game findGame(String username) {
-        return this.findGameByUsername(username);
-    }
-
-    private Game findGameByUsername(String username) {
+    private Game findGameById(Long id) {
         return this.gameRepository
-                .findByUsername(username)
+                .findById(id)
                 .orElse(Game.create());
     }
 }
