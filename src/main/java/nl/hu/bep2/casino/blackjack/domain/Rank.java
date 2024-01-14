@@ -15,7 +15,16 @@ public enum Rank {
     QUEEN("Queen", 10),
     JACK("Jack", 10);
 
+    private String name;
+    private int value;
+
     Rank(String name, int value) {
+        this.name = name;
+        this.value = value;
+    }
+
+    public int getValue() {
+        return this.value;
     }
 
 }

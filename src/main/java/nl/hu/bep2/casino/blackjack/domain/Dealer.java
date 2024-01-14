@@ -6,4 +6,14 @@ public class Dealer implements Player {
     public Dealer(Hand hand) {
         this.hand = hand;
     }
+
+    @Override
+    public int handScore() {
+        return 0;
+    }
+
+    @Override
+    public Hand getHand() {
+        return null;
+    }
 }
